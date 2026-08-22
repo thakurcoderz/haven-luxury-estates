@@ -76,7 +76,7 @@ The platform provides a public catalog and client inquiry portal alongside a ded
 ### 2. Clone and Setup Dependencies
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/haven-luxury-estates.git
+git clone https://github.com/thakurcoderz/haven-luxury-estates.git
 cd haven-luxury-estates
 
 # Install PHP dependencies
