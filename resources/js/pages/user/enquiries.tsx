@@ -74,7 +74,7 @@ export default function UserEnquiries({
             case 'resolved':
                 return {
                     label: 'Inquiry Completed / Resolved',
-                    badgeClass: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300',
+                    badgeClass: 'bg-brand-soft border-brand text-foreground',
                     icon: CheckCircle2,
                     description: 'Your showing or property transaction inquiry has been completed.',
                 };
@@ -92,7 +92,7 @@ export default function UserEnquiries({
         switch (type) {
             case 'schedule_tour':
                 return (
-                    <Badge className="bg-emerald-600 text-white gap-1 text-[11px]">
+                    <Badge className="bg-primary text-primary-foreground gap-1 text-[11px]">
                         <Calendar className="size-3" /> Private Tour Request
                     </Badge>
                 );
@@ -126,7 +126,7 @@ export default function UserEnquiries({
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
+                        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand uppercase tracking-wider mb-1">
                             <MessageSquare className="size-3.5" />
                             <span>Client Inquiries & Showing History</span>
                         </div>
@@ -139,7 +139,7 @@ export default function UserEnquiries({
                     </div>
 
                     <Link href="/properties">
-                        <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md gap-2 text-xs">
+                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md gap-2 text-xs">
                             <Compass className="size-4" />
                             <span>Explore More Listings</span>
                         </Button>
@@ -147,7 +147,7 @@ export default function UserEnquiries({
                 </div>
 
                 {/* Status Tabs */}
-                <div className="flex flex-wrap items-center gap-2 p-1.5 bg-muted rounded-2xl text-xs font-semibold">
+                <div className="flex flex-wrap items-center gap-2 p-1.5 bg-muted rounded-md text-xs font-semibold">
                     {[
                         { label: 'All Inquiries', value: 'all', count: counts.all },
                         { label: 'Pending Review', value: 'new', count: counts.new },
@@ -158,7 +158,7 @@ export default function UserEnquiries({
                             key={tab.value}
                             type="button"
                             onClick={() => setSelectedStatus(tab.value)}
-                            className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${
+                            className={`px-4 py-2 rounded-md transition-all flex items-center gap-2 ${
                                 selectedStatus === tab.value
                                     ? 'bg-background text-foreground shadow-sm font-bold'
                                     : 'text-muted-foreground hover:text-foreground'
@@ -182,13 +182,13 @@ export default function UserEnquiries({
                             return (
                                 <div
                                     key={enquiry.id}
-                                    className="bg-card border border-border/80 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow space-y-5"
+                                    className="bg-card border border-border/80 rounded-md p-6 shadow-sm hover:shadow-md transition-shadow space-y-5"
                                 >
                                     {/* Top Bar: Property info & Status Badge */}
                                     <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-border/60">
                                         <div className="flex items-start gap-4">
                                             {enquiry.property && (
-                                                <div className="size-16 rounded-2xl overflow-hidden bg-muted shrink-0 border border-border">
+                                                <div className="size-16 rounded-md overflow-hidden bg-muted shrink-0 border border-border">
                                                     <img
                                                         src={
                                                             enquiry.property.images && enquiry.property.images.length > 0
@@ -218,7 +218,7 @@ export default function UserEnquiries({
                                                 {enquiry.property ? (
                                                     <Link
                                                         href={`/properties/${enquiry.property.slug}`}
-                                                        className="text-base sm:text-lg font-bold text-foreground hover:text-emerald-600 transition-colors flex items-center gap-1.5"
+                                                        className="text-base sm:text-lg font-bold text-foreground hover:text-brand transition-colors flex items-center gap-1.5"
                                                     >
                                                         <span>{enquiry.property.title}</span>
                                                         <ExternalLink className="size-3.5 text-muted-foreground" />
@@ -231,7 +231,7 @@ export default function UserEnquiries({
 
                                                 {enquiry.property && (
                                                     <p className="text-xs text-muted-foreground flex items-center gap-1">
-                                                        <MapPin className="size-3 text-emerald-600" />
+                                                        <MapPin className="size-3 text-brand" />
                                                         <span>{enquiry.property.address}, {enquiry.property.city}, {enquiry.property.state}</span>
                                                     </p>
                                                 )}
@@ -240,7 +240,7 @@ export default function UserEnquiries({
 
                                         {/* Status Pill */}
                                         <div className="shrink-0 flex items-center gap-2">
-                                            <div className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 ${statusInfo.badgeClass}`}>
+                                            <div className={`px-3 py-1.5 rounded-md border text-xs font-bold flex items-center gap-1.5 ${statusInfo.badgeClass}`}>
                                                 <StatusIcon className="size-4" />
                                                 <span>{statusInfo.label}</span>
                                             </div>
@@ -249,7 +249,7 @@ export default function UserEnquiries({
 
                                     {/* Showing Date if Applicable */}
                                     {enquiry.preferred_date && (
-                                        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                                        <div className="flex items-center gap-2 text-xs font-semibold text-brand p-2.5 rounded-md bg-brand-soft border border-brand">
                                             <Calendar className="size-4" />
                                             <span>Requested Private Tour Date: <strong>{enquiry.preferred_date}</strong></span>
                                         </div>
@@ -260,14 +260,14 @@ export default function UserEnquiries({
                                         <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                                             Your Message / Notes
                                         </span>
-                                        <div className="p-3.5 rounded-2xl bg-muted/40 text-xs sm:text-sm text-foreground leading-relaxed whitespace-pre-line border border-border/40">
+                                        <div className="p-3.5 rounded-md bg-muted/40 text-xs sm:text-sm text-foreground leading-relaxed whitespace-pre-line border border-border/40">
                                             "{enquiry.message}"
                                         </div>
                                     </div>
 
                                     {/* Status Explanation Card */}
                                     <div className="flex items-center gap-2.5 text-xs text-muted-foreground pt-1">
-                                        <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                                        <div className="size-2 rounded-full bg-brand animate-pulse" />
                                         <span>{statusInfo.description}</span>
                                     </div>
                                 </div>
@@ -275,8 +275,8 @@ export default function UserEnquiries({
                         })}
                     </div>
                 ) : (
-                    <div className="text-center py-20 px-4 bg-card border border-dashed border-border rounded-3xl space-y-4 max-w-md mx-auto">
-                        <div className="size-16 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
+                    <div className="text-center py-20 px-4 bg-card border border-dashed border-border rounded-md space-y-4 max-w-md mx-auto">
+                        <div className="size-16 rounded-full bg-brand-soft text-brand flex items-center justify-center mx-auto">
                             <Inbox className="size-8" />
                         </div>
                         <h3 className="text-xl font-bold text-foreground">No Inquiries Found</h3>
@@ -286,7 +286,7 @@ export default function UserEnquiries({
                                 : `You don't have any inquiries with status "${selectedStatus}".`}
                         </p>
                         <Link href="/properties">
-                            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold gap-2">
+                            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md text-xs font-semibold gap-2">
                                 <Compass className="size-4" />
                                 <span>Browse Available Residences</span>
                             </Button>

@@ -107,7 +107,7 @@ export default function AdminPropertiesIndex({
                     </div>
 
                     <Link href="/admin/properties/create">
-                        <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md gap-2">
+                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md gap-2">
                             <Plus className="size-4" />
                             <span>Add New Property</span>
                         </Button>
@@ -115,7 +115,7 @@ export default function AdminPropertiesIndex({
                 </div>
 
                 {/* Filter Toolbar */}
-                <div className="bg-card border border-border rounded-2xl p-4 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-center">
+                <div className="bg-card border border-border rounded-md p-4 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-center">
                     {/* Search */}
                     <div className="lg:col-span-4 relative">
                         <Search className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
@@ -125,7 +125,7 @@ export default function AdminPropertiesIndex({
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleFilter()}
-                            className="pl-9 h-9 rounded-xl text-xs"
+                            className="pl-9 h-9 rounded-md text-xs"
                         />
                     </div>
 
@@ -138,7 +138,7 @@ export default function AdminPropertiesIndex({
                                 handleFilter({ type: val !== 'all' ? val : undefined });
                             }}
                         >
-                            <SelectTrigger className="h-9 rounded-xl text-xs">
+                            <SelectTrigger className="h-9 rounded-md text-xs">
                                 <SelectValue placeholder="All Categories" />
                             </SelectTrigger>
                             <SelectContent>
@@ -161,7 +161,7 @@ export default function AdminPropertiesIndex({
                                 handleFilter({ status: val !== 'all' ? val : undefined });
                             }}
                         >
-                            <SelectTrigger className="h-9 rounded-xl text-xs">
+                            <SelectTrigger className="h-9 rounded-md text-xs">
                                 <SelectValue placeholder="Status" />
                             </SelectTrigger>
                             <SelectContent>
@@ -183,7 +183,7 @@ export default function AdminPropertiesIndex({
                                 handleFilter({ price_type: val !== 'all' ? val : undefined });
                             }}
                         >
-                            <SelectTrigger className="h-9 rounded-xl text-xs">
+                            <SelectTrigger className="h-9 rounded-md text-xs">
                                 <SelectValue placeholder="Type" />
                             </SelectTrigger>
                             <SelectContent>
@@ -199,7 +199,7 @@ export default function AdminPropertiesIndex({
                         <Button
                             size="sm"
                             onClick={() => handleFilter()}
-                            className="w-full h-9 bg-muted hover:bg-muted/80 text-foreground rounded-xl text-xs"
+                            className="w-full h-9 bg-muted hover:bg-muted/80 text-foreground rounded-md text-xs"
                         >
                             Filter
                         </Button>
@@ -207,7 +207,7 @@ export default function AdminPropertiesIndex({
                 </div>
 
                 {/* Table View */}
-                <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                <div className="bg-card border border-border rounded-md overflow-hidden shadow-sm">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse text-xs">
                             <thead>
@@ -244,7 +244,7 @@ export default function AdminPropertiesIndex({
                                                         <Link
                                                             href={`/properties/${prop.slug}`}
                                                             target="_blank"
-                                                            className="font-bold text-foreground hover:text-emerald-600 transition-colors truncate block text-sm"
+                                                            className="font-bold text-foreground hover:text-brand transition-colors truncate block text-sm"
                                                         >
                                                             {prop.title}
                                                         </Link>
@@ -283,7 +283,7 @@ export default function AdminPropertiesIndex({
                                                 <Badge
                                                     className={`text-[10px] uppercase font-bold ${
                                                         prop.status === 'available'
-                                                            ? 'bg-emerald-600 text-white'
+                                                            ? 'bg-primary text-primary-foreground'
                                                             : prop.status === 'pending'
                                                             ? 'bg-amber-500 text-slate-950'
                                                             : 'bg-muted text-muted-foreground'
@@ -329,7 +329,7 @@ export default function AdminPropertiesIndex({
                                                     </Link>
                                                     <Link
                                                         href={`/admin/properties/${prop.id}/edit`}
-                                                        className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-500/10"
+                                                        className="p-1.5 rounded-lg text-brand hover:bg-brand-soft"
                                                         title="Edit property"
                                                     >
                                                         <Edit className="size-3.5" />
@@ -371,7 +371,7 @@ export default function AdminPropertiesIndex({
                                                 variant={link.active ? 'default' : 'outline'}
                                                 size="sm"
                                                 className={`h-8 w-8 p-0 rounded-lg text-xs ${
-                                                    link.active ? 'bg-emerald-600 text-white font-bold' : ''
+                                                    link.active ? 'bg-primary text-primary-foreground font-bold' : ''
                                                 }`}
                                             >
                                                 <span dangerouslySetInnerHTML={{ __html: link.label }} />

@@ -35,16 +35,16 @@ export default function FlashMessage() {
     return (
         <div className="fixed bottom-6 right-6 z-50 max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300">
             <div
-                className={`flex items-start gap-3 p-4 rounded-xl border shadow-xl backdrop-blur-md ${
+                className={`flex items-start gap-3 p-4 rounded-md border shadow-xl backdrop-blur-md ${
                     isError
                         ? 'bg-red-500/10 border-red-500/30 text-red-700 dark:text-red-300'
-                        : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-300'
+                        : 'bg-brand-soft border-brand text-foreground'
                 }`}
             >
                 {isError ? (
                     <AlertCircle className="size-5 shrink-0 text-red-500 mt-0.5" />
                 ) : (
-                    <CheckCircle2 className="size-5 shrink-0 text-emerald-600 dark:text-emerald-400 mt-0.5" />
+                    <CheckCircle2 className="size-5 shrink-0 text-brand mt-0.5" />
                 )}
                 <div className="flex-1 text-sm font-medium leading-relaxed">
                     {message}

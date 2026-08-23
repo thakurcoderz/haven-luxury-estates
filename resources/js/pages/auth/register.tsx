@@ -41,7 +41,7 @@ export default function Register({ passwordRules }: Props) {
                                     autoComplete="name"
                                     name="name"
                                     placeholder="Full name"
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError
                                     message={errors.name}
@@ -59,7 +59,7 @@ export default function Register({ passwordRules }: Props) {
                                     autoComplete="email"
                                     name="email"
                                     placeholder="email@example.com"
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -74,7 +74,7 @@ export default function Register({ passwordRules }: Props) {
                                     name="password"
                                     placeholder="Password"
                                     passwordrules={passwordRules}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -91,7 +91,7 @@ export default function Register({ passwordRules }: Props) {
                                     name="password_confirmation"
                                     placeholder="Confirm password"
                                     passwordrules={passwordRules}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError
                                     message={errors.password_confirmation}
@@ -100,7 +100,7 @@ export default function Register({ passwordRules }: Props) {
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold"
+                                className="mt-2 w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-md font-semibold"
                                 tabIndex={5}
                                 data-test="register-user-button"
                             >
@@ -111,7 +111,7 @@ export default function Register({ passwordRules }: Props) {
 
                         <div className="text-center text-sm text-muted-foreground">
                             Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6} className="text-emerald-600 font-semibold hover:underline">
+                            <TextLink href={login()} tabIndex={6} className="text-brand font-semibold hover:underline">
                                 Log in
                             </TextLink>
                         </div>

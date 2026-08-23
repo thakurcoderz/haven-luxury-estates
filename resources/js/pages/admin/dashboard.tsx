@@ -80,7 +80,7 @@ export default function AdminDashboard({
                 {/* Dashboard Header Bar with Quick Action */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
+                        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand uppercase tracking-wider mb-1">
                             <Shield className="size-3.5" />
                             <span>Brokerage Control Center</span>
                         </div>
@@ -94,13 +94,13 @@ export default function AdminDashboard({
 
                     <div className="flex items-center gap-3">
                         <Link href="/properties" target="_blank">
-                            <Button variant="outline" size="sm" className="rounded-xl gap-2 text-xs">
+                            <Button variant="outline" size="sm" className="rounded-md gap-2 text-xs">
                                 <ExternalLink className="size-3.5" />
                                 <span>Public Site</span>
                             </Button>
                         </Link>
                         <Link href="/admin/properties/create">
-                            <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md gap-1.5 text-xs">
+                            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md gap-1.5 text-xs">
                                 <Plus className="size-4" />
                                 <span>Add New Listing</span>
                             </Button>
@@ -111,12 +111,12 @@ export default function AdminDashboard({
                 {/* Key Metric Summary Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                     {/* Active Listings */}
-                    <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-sm space-y-2">
+                    <div className="bg-card border border-border/80 rounded-md p-5 shadow-sm space-y-2">
                         <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                 Active Listings
                             </span>
-                            <div className="size-9 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+                            <div className="size-9 rounded-md bg-brand-soft text-brand flex items-center justify-center">
                                 <Building2 className="size-4.5" />
                             </div>
                         </div>
@@ -124,23 +124,23 @@ export default function AdminDashboard({
                             {stats.active_properties}
                         </div>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
-                            <span className="text-emerald-600 font-semibold">{stats.total_properties} total</span>
+                            <span className="text-brand font-semibold">{stats.total_properties} total</span>
                             <span>•</span>
                             <span>{stats.pending_properties} pending</span>
                         </div>
                     </div>
 
                     {/* New Inquiries */}
-                    <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-sm space-y-2">
+                    <div className="bg-card border border-border/80 rounded-md p-5 shadow-sm space-y-2">
                         <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                 New Leads & Inquiries
                             </span>
-                            <div className="size-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
+                            <div className="size-9 rounded-md bg-muted text-muted-foreground flex items-center justify-center">
                                 <Inbox className="size-4.5" />
                             </div>
                         </div>
-                        <div className="text-2xl sm:text-3xl font-extrabold text-amber-600 dark:text-amber-400 tracking-tight">
+                        <div className="text-2xl sm:text-3xl font-extrabold text-brand tracking-tight">
                             {stats.new_enquiries}
                         </div>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
@@ -149,12 +149,12 @@ export default function AdminDashboard({
                     </div>
 
                     {/* Categories / Types */}
-                    <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-sm space-y-2">
+                    <div className="bg-card border border-border/80 rounded-md p-5 shadow-sm space-y-2">
                         <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                 Property Categories
                             </span>
-                            <div className="size-9 rounded-xl bg-sky-500/10 text-sky-600 flex items-center justify-center">
+                            <div className="size-9 rounded-md bg-muted text-muted-foreground flex items-center justify-center">
                                 <Layers className="size-4.5" />
                             </div>
                         </div>
@@ -162,19 +162,19 @@ export default function AdminDashboard({
                             {stats.total_property_types}
                         </div>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
-                            <Link href="/admin/property-types" className="text-emerald-600 font-semibold hover:underline">
+                            <Link href="/admin/property-types" className="text-brand font-semibold hover:underline">
                                 Manage categories →
                             </Link>
                         </div>
                     </div>
 
                     {/* Advisors & Users */}
-                    <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-sm space-y-2">
+                    <div className="bg-card border border-border/80 rounded-md p-5 shadow-sm space-y-2">
                         <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                 Agents & Users
                             </span>
-                            <div className="size-9 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center">
+                            <div className="size-9 rounded-md bg-muted text-muted-foreground flex items-center justify-center">
                                 <Users className="size-4.5" />
                             </div>
                         </div>
@@ -182,7 +182,7 @@ export default function AdminDashboard({
                             {stats.total_users}
                         </div>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
-                            <span className="text-purple-600 font-semibold">{stats.total_agents} active agents</span>
+                            <span className="text-foreground font-semibold">{stats.total_agents} active agents</span>
                         </div>
                     </div>
                 </div>
@@ -190,11 +190,11 @@ export default function AdminDashboard({
                 {/* Two Column Grid: Recent Inquiries & Recent Properties */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* Recent Inquiries (7 cols) */}
-                    <div className="lg:col-span-7 bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="lg:col-span-7 bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                                    <Inbox className="size-4 text-emerald-600" />
+                                    <Inbox className="size-4 text-brand" />
                                     <span>Recent Inquiries & Tour Requests</span>
                                 </h3>
                                 <p className="text-xs text-muted-foreground mt-0.5">
@@ -202,7 +202,7 @@ export default function AdminDashboard({
                                 </p>
                             </div>
                             <Link href="/admin/enquiries">
-                                <Button variant="ghost" size="sm" className="text-xs text-emerald-600 dark:text-emerald-400 gap-1">
+                                <Button variant="ghost" size="sm" className="text-xs text-brand gap-1">
                                     View All ({stats.total_enquiries}) →
                                 </Button>
                             </Link>
@@ -213,7 +213,7 @@ export default function AdminDashboard({
                                 {recentEnquiries.map((enquiry) => (
                                     <div
                                         key={enquiry.id}
-                                        className="p-4 rounded-xl bg-muted/40 border border-border/60 hover:bg-muted/70 transition-colors space-y-2"
+                                        className="p-4 rounded-md bg-muted/40 border border-border/60 hover:bg-muted/70 transition-colors space-y-2"
                                     >
                                         <div className="flex items-center justify-between gap-2">
                                             <div className="flex items-center gap-2 min-w-0">
@@ -226,7 +226,7 @@ export default function AdminDashboard({
                                                             ? 'bg-amber-500 text-slate-950'
                                                             : enquiry.status === 'contacted'
                                                             ? 'bg-sky-600 text-white'
-                                                            : 'bg-emerald-600 text-white'
+                                                            : 'bg-primary text-primary-foreground'
                                                     }`}
                                                 >
                                                     {enquiry.status}
@@ -249,7 +249,7 @@ export default function AdminDashboard({
                                                 </span>
                                                 <Link
                                                     href={`/admin/enquiries`}
-                                                    className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline"
+                                                    className="text-brand font-semibold hover:underline"
                                                 >
                                                     Manage Inquiry →
                                                 </Link>
@@ -266,11 +266,11 @@ export default function AdminDashboard({
                     </div>
 
                     {/* Recent Properties (5 cols) */}
-                    <div className="lg:col-span-5 bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="lg:col-span-5 bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                                    <Building2 className="size-4 text-emerald-600" />
+                                    <Building2 className="size-4 text-brand" />
                                     <span>Recent Listings</span>
                                 </h3>
                                 <p className="text-xs text-muted-foreground mt-0.5">
@@ -278,7 +278,7 @@ export default function AdminDashboard({
                                 </p>
                             </div>
                             <Link href="/admin/properties">
-                                <Button variant="ghost" size="sm" className="text-xs text-emerald-600 dark:text-emerald-400 gap-1">
+                                <Button variant="ghost" size="sm" className="text-xs text-brand gap-1">
                                     View All →
                                 </Button>
                             </Link>
@@ -289,7 +289,7 @@ export default function AdminDashboard({
                                 {recentProperties.map((property) => (
                                     <div
                                         key={property.id}
-                                        className="flex items-center gap-3 p-3 rounded-xl bg-muted/40 border border-border/60 hover:bg-muted/70 transition-colors"
+                                        className="flex items-center gap-3 p-3 rounded-md bg-muted/40 border border-border/60 hover:bg-muted/70 transition-colors"
                                     >
                                         <div className="size-14 rounded-lg overflow-hidden bg-muted shrink-0">
                                             <img
@@ -310,7 +310,7 @@ export default function AdminDashboard({
                                             <p className="text-[11px] text-muted-foreground truncate mt-0.5">
                                                 {property.city}, {property.state}
                                             </p>
-                                            <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-1">
+                                            <p className="text-xs font-bold text-brand mt-1">
                                                 {formatPrice(property.price, property.price_type)}
                                             </p>
                                         </div>
@@ -320,7 +320,7 @@ export default function AdminDashboard({
                                                 variant="outline"
                                                 className={`text-[10px] capitalize ${
                                                     property.status === 'available'
-                                                        ? 'border-emerald-500 text-emerald-600'
+                                                        ? 'border-brand text-brand'
                                                         : 'border-border text-muted-foreground'
                                                 }`}
                                             >

@@ -117,7 +117,7 @@ export default function AdminEnquiriesIndex({
         switch (type) {
             case 'schedule_tour':
                 return (
-                    <Badge className="bg-emerald-500/10 border-emerald-500 text-emerald-700 dark:text-emerald-300 gap-1 text-[10px]">
+                    <Badge className="bg-brand-soft border-brand text-brand gap-1 text-[10px]">
                         <Calendar className="size-3" /> Tour Request
                     </Badge>
                 );
@@ -159,10 +159,10 @@ export default function AdminEnquiriesIndex({
                 </div>
 
                 {/* Status Segment Tabs & Search */}
-                <div className="bg-card border border-border rounded-2xl p-4 shadow-sm space-y-4">
+                <div className="bg-card border border-border rounded-md p-4 shadow-sm space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         {/* Status Pills */}
-                        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-muted rounded-xl text-xs font-semibold">
+                        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-muted rounded-md text-xs font-semibold">
                             {[
                                 { label: 'All', value: 'all', count: statusCounts.all },
                                 { label: 'New', value: 'new', count: statusCounts.new },
@@ -200,14 +200,14 @@ export default function AdminEnquiriesIndex({
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleFilter()}
-                                className="pl-9 h-9 rounded-xl text-xs"
+                                className="pl-9 h-9 rounded-md text-xs"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Inquiries Table */}
-                <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                <div className="bg-card border border-border rounded-md overflow-hidden shadow-sm">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse text-xs">
                             <thead>
@@ -229,12 +229,12 @@ export default function AdminEnquiriesIndex({
                                             <td className="py-3 px-4">
                                                 <div className="font-bold text-foreground text-sm">{enq.name}</div>
                                                 <div className="text-[11px] text-muted-foreground flex items-center gap-1.5 mt-0.5">
-                                                    <Mail className="size-3 text-emerald-600" />
+                                                    <Mail className="size-3 text-brand" />
                                                     <span>{enq.email}</span>
                                                 </div>
                                                 {enq.phone && (
                                                     <div className="text-[11px] text-muted-foreground flex items-center gap-1.5 mt-0.5">
-                                                        <Phone className="size-3 text-emerald-600" />
+                                                        <Phone className="size-3 text-brand" />
                                                         <span>{enq.phone}</span>
                                                     </div>
                                                 )}
@@ -245,7 +245,7 @@ export default function AdminEnquiriesIndex({
                                                 {getTypeBadge(enq.enquiry_type)}
                                                 {enq.preferred_date && (
                                                     <div className="text-[10px] text-muted-foreground mt-1 flex items-center gap-1">
-                                                        <Calendar className="size-3 text-emerald-600" />
+                                                        <Calendar className="size-3 text-brand" />
                                                         <span>Tour: {enq.preferred_date}</span>
                                                     </div>
                                                 )}
@@ -257,7 +257,7 @@ export default function AdminEnquiriesIndex({
                                                     <Link
                                                         href={`/properties/${enq.property.slug}`}
                                                         target="_blank"
-                                                        className="font-medium text-foreground hover:text-emerald-600 transition-colors block max-w-xs truncate"
+                                                        className="font-medium text-foreground hover:text-brand transition-colors block max-w-xs truncate"
                                                     >
                                                         {enq.property.title}
                                                     </Link>
@@ -291,7 +291,7 @@ export default function AdminEnquiriesIndex({
                                                             : enq.status === 'contacted'
                                                             ? 'bg-sky-600 text-white'
                                                             : enq.status === 'resolved'
-                                                            ? 'bg-emerald-600 text-white'
+                                                            ? 'bg-primary text-primary-foreground'
                                                             : 'bg-muted text-muted-foreground'
                                                     }`}
                                                 >
@@ -306,7 +306,7 @@ export default function AdminEnquiriesIndex({
                                                         variant="outline"
                                                         size="sm"
                                                         onClick={() => handleOpenEnquiry(enq)}
-                                                        className="h-8 px-2.5 rounded-xl text-xs gap-1.5"
+                                                        className="h-8 px-2.5 rounded-md text-xs gap-1.5"
                                                     >
                                                         <Eye className="size-3.5" />
                                                         <span>Details</span>
@@ -348,7 +348,7 @@ export default function AdminEnquiriesIndex({
                                                 variant={link.active ? 'default' : 'outline'}
                                                 size="sm"
                                                 className={`h-8 w-8 p-0 rounded-lg text-xs ${
-                                                    link.active ? 'bg-emerald-600 text-white font-bold' : ''
+                                                    link.active ? 'bg-primary text-primary-foreground font-bold' : ''
                                                 }`}
                                             >
                                                 <span dangerouslySetInnerHTML={{ __html: link.label }} />
@@ -363,10 +363,10 @@ export default function AdminEnquiriesIndex({
 
                 {/* Details & Notes Modal */}
                 <Dialog open={selectedEnquiry !== null} onOpenChange={(open) => !open && setSelectedEnquiry(null)}>
-                    <DialogContent className="rounded-3xl max-w-xl">
+                    <DialogContent className="rounded-md max-w-xl">
                         <DialogHeader>
                             <DialogTitle className="flex items-center gap-2">
-                                <Inbox className="size-5 text-emerald-600" />
+                                <Inbox className="size-5 text-brand" />
                                 <span>Inquiry Details & Management</span>
                             </DialogTitle>
                             <DialogDescription>
@@ -377,7 +377,7 @@ export default function AdminEnquiriesIndex({
                         {selectedEnquiry && (
                             <form onSubmit={handleUpdateSubmit} className="space-y-4 pt-2">
                                 {/* Client Info Card */}
-                                <div className="p-4 rounded-2xl bg-muted/50 border border-border space-y-2">
+                                <div className="p-4 rounded-md bg-muted/50 border border-border space-y-2">
                                     <div className="flex items-center justify-between">
                                         <h4 className="font-bold text-sm text-foreground">{selectedEnquiry.name}</h4>
                                         <span className="text-xs text-muted-foreground">
@@ -386,12 +386,12 @@ export default function AdminEnquiriesIndex({
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
                                         <a href={`mailto:${selectedEnquiry.email}`} className="hover:text-foreground flex items-center gap-1.5">
-                                            <Mail className="size-3.5 text-emerald-600 shrink-0" />
+                                            <Mail className="size-3.5 text-brand shrink-0" />
                                             <span className="truncate">{selectedEnquiry.email}</span>
                                         </a>
                                         {selectedEnquiry.phone && (
                                             <a href={`tel:${selectedEnquiry.phone}`} className="hover:text-foreground flex items-center gap-1.5">
-                                                <Phone className="size-3.5 text-emerald-600 shrink-0" />
+                                                <Phone className="size-3.5 text-brand shrink-0" />
                                                 <span>{selectedEnquiry.phone}</span>
                                             </a>
                                         )}
@@ -400,7 +400,7 @@ export default function AdminEnquiriesIndex({
                                     {selectedEnquiry.property && (
                                         <div className="pt-2 border-t border-border/60 text-xs flex items-center justify-between">
                                             <span className="text-muted-foreground">Property: <strong className="text-foreground">{selectedEnquiry.property.title}</strong></span>
-                                            <Link href={`/properties/${selectedEnquiry.property.slug}`} target="_blank" className="text-emerald-600 hover:underline flex items-center gap-1">
+                                            <Link href={`/properties/${selectedEnquiry.property.slug}`} target="_blank" className="text-brand hover:underline flex items-center gap-1">
                                                 <ExternalLink className="size-3" />
                                                 <span>View Listing</span>
                                             </Link>
@@ -408,7 +408,7 @@ export default function AdminEnquiriesIndex({
                                     )}
 
                                     {selectedEnquiry.preferred_date && (
-                                        <div className="text-xs text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
+                                        <div className="text-xs text-brand font-semibold flex items-center gap-1.5">
                                             <Calendar className="size-3.5" />
                                             <span>Requested Showing Date: {selectedEnquiry.preferred_date}</span>
                                         </div>
@@ -420,7 +420,7 @@ export default function AdminEnquiriesIndex({
                                     <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                         Client Message
                                     </Label>
-                                    <div className="p-3.5 rounded-xl bg-background border border-border text-sm leading-relaxed whitespace-pre-line text-foreground">
+                                    <div className="p-3.5 rounded-md bg-background border border-border text-sm leading-relaxed whitespace-pre-line text-foreground">
                                         {selectedEnquiry.message}
                                     </div>
                                 </div>
@@ -432,7 +432,7 @@ export default function AdminEnquiriesIndex({
                                         value={updateForm.data.status}
                                         onValueChange={(val) => updateForm.setData('status', val)}
                                     >
-                                        <SelectTrigger className="rounded-xl">
+                                        <SelectTrigger className="rounded-md">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -453,7 +453,7 @@ export default function AdminEnquiriesIndex({
                                         placeholder="Record details of phone calls, scheduled showings, or client preferences..."
                                         value={updateForm.data.admin_notes}
                                         onChange={(e) => updateForm.setData('admin_notes', e.target.value)}
-                                        className="w-full px-3 py-2 text-sm bg-background border border-input rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
+                                        className="w-full px-3 py-2 text-sm bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring/50 resize-none"
                                     />
                                 </div>
 
@@ -462,14 +462,14 @@ export default function AdminEnquiriesIndex({
                                         type="button"
                                         variant="outline"
                                         onClick={() => setSelectedEnquiry(null)}
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                     >
                                         Cancel
                                     </Button>
                                     <Button
                                         type="submit"
                                         disabled={updateForm.processing}
-                                        className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md gap-2"
+                                        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md gap-2"
                                     >
                                         <Save className="size-4" />
                                         <span>{updateForm.processing ? 'Saving...' : 'Save Updates'}</span>

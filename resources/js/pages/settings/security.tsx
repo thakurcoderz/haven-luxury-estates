@@ -60,7 +60,7 @@ export default function Security(props: Props) {
                                     id="current_password"
                                     ref={currentPasswordInput}
                                     name="current_password"
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                     autoComplete="current-password"
                                     placeholder="Enter current password"
                                 />
@@ -76,7 +76,7 @@ export default function Security(props: Props) {
                                         id="password"
                                         ref={passwordInput}
                                         name="password"
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                         autoComplete="new-password"
                                         placeholder="New password"
                                         passwordrules={props.passwordRules}
@@ -93,7 +93,7 @@ export default function Security(props: Props) {
                                     <PasswordInput
                                         id="password_confirmation"
                                         name="password_confirmation"
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                         autoComplete="new-password"
                                         placeholder="Confirm password"
                                         passwordrules={props.passwordRules}
@@ -108,7 +108,7 @@ export default function Security(props: Props) {
                             <div className="flex items-center gap-4 pt-2">
                                 <Button
                                     disabled={processing}
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-xs px-6"
+                                    className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md font-semibold text-xs px-6"
                                     data-test="update-password-button"
                                 >
                                     Update Password

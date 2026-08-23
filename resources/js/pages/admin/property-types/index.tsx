@@ -150,7 +150,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
 
                     <Button
                         onClick={() => setIsCreateOpen(true)}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md gap-2"
+                        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md gap-2"
                     >
                         <Plus className="size-4" />
                         <span>New Category</span>
@@ -162,11 +162,11 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                     {propertyTypes.map((type) => (
                         <div
                             key={type.id}
-                            className="bg-card border border-border rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
+                            className="bg-card border border-border rounded-md p-6 shadow-sm flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
                         >
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <div className="size-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+                                    <div className="size-10 rounded-md bg-brand-soft text-brand flex items-center justify-center">
                                         {getIconComponent(type.icon)}
                                     </div>
                                     <Badge variant="secondary" className="text-xs font-semibold">
@@ -190,7 +190,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     variant="outline"
                                     size="sm"
                                     onClick={() => handleOpenEdit(type)}
-                                    className="rounded-xl text-xs gap-1.5 h-8"
+                                    className="rounded-md text-xs gap-1.5 h-8"
                                 >
                                     <Edit className="size-3.5" />
                                     <span>Edit</span>
@@ -200,7 +200,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     variant="ghost"
                                     size="sm"
                                     onClick={() => handleDelete(type)}
-                                    className="text-rose-600 hover:bg-rose-500/10 rounded-xl text-xs gap-1.5 h-8"
+                                    className="text-rose-600 hover:bg-rose-500/10 rounded-md text-xs gap-1.5 h-8"
                                 >
                                     <Trash2 className="size-3.5" />
                                     <span>Delete</span>
@@ -212,7 +212,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
 
                 {/* Create Modal Dialog */}
                 <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-                    <DialogContent className="rounded-2xl">
+                    <DialogContent className="rounded-md">
                         <DialogHeader>
                             <DialogTitle>Add Property Category</DialogTitle>
                             <DialogDescription>
@@ -229,7 +229,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     value={createForm.data.name}
                                     onChange={(e) => createForm.setData('name', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={createForm.errors.name} />
                             </div>
@@ -240,7 +240,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     value={createForm.data.icon}
                                     onValueChange={(val) => createForm.setData('icon', val)}
                                 >
-                                    <SelectTrigger className="rounded-xl">
+                                    <SelectTrigger className="rounded-md">
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -261,7 +261,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     placeholder="Brief summary of what this property category represents..."
                                     value={createForm.data.description}
                                     onChange={(e) => createForm.setData('description', e.target.value)}
-                                    className="w-full px-3 py-2 text-sm bg-background border border-input rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                                    className="w-full px-3 py-2 text-sm bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring/50"
                                 />
                             </div>
 
@@ -270,14 +270,14 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     type="button"
                                     variant="outline"
                                     onClick={() => setIsCreateOpen(false)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 >
                                     Cancel
                                 </Button>
                                 <Button
                                     type="submit"
                                     disabled={createForm.processing}
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md"
+                                    className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md"
                                 >
                                     {createForm.processing ? 'Creating...' : 'Create Category'}
                                 </Button>
@@ -288,7 +288,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
 
                 {/* Edit Modal Dialog */}
                 <Dialog open={editingType !== null} onOpenChange={(open) => !open && setEditingType(null)}>
-                    <DialogContent className="rounded-2xl">
+                    <DialogContent className="rounded-md">
                         <DialogHeader>
                             <DialogTitle>Edit Property Category</DialogTitle>
                             <DialogDescription>
@@ -304,7 +304,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     value={editForm.data.name}
                                     onChange={(e) => editForm.setData('name', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={editForm.errors.name} />
                             </div>
@@ -315,7 +315,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     value={editForm.data.icon}
                                     onValueChange={(val) => editForm.setData('icon', val)}
                                 >
-                                    <SelectTrigger className="rounded-xl">
+                                    <SelectTrigger className="rounded-md">
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -335,7 +335,7 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     rows={3}
                                     value={editForm.data.description}
                                     onChange={(e) => editForm.setData('description', e.target.value)}
-                                    className="w-full px-3 py-2 text-sm bg-background border border-input rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                                    className="w-full px-3 py-2 text-sm bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring/50"
                                 />
                             </div>
 
@@ -344,14 +344,14 @@ export default function AdminPropertyTypesIndex({ propertyTypes = [] }: Property
                                     type="button"
                                     variant="outline"
                                     onClick={() => setEditingType(null)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 >
                                     Cancel
                                 </Button>
                                 <Button
                                     type="submit"
                                     disabled={editForm.processing}
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md"
+                                    className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md"
                                 >
                                     {editForm.processing ? 'Saving...' : 'Save Changes'}
                                 </Button>

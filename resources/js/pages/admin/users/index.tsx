@@ -118,10 +118,10 @@ export default function AdminUsersIndex({
                 </div>
 
                 {/* Role Tabs & Search */}
-                <div className="bg-card border border-border rounded-2xl p-4 shadow-sm space-y-4">
+                <div className="bg-card border border-border rounded-md p-4 shadow-sm space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         {/* Role Pills */}
-                        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-muted rounded-xl text-xs font-semibold">
+                        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-muted rounded-md text-xs font-semibold">
                             {[
                                 { label: 'All Users', value: 'all', count: roleCounts.all },
                                 { label: 'Admins', value: 'admin', count: roleCounts.admin },
@@ -158,14 +158,14 @@ export default function AdminUsersIndex({
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleFilter()}
-                                className="pl-9 h-9 rounded-xl text-xs"
+                                className="pl-9 h-9 rounded-md text-xs"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Users Table */}
-                <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                <div className="bg-card border border-border rounded-md overflow-hidden shadow-sm">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse text-xs">
                             <thead>
@@ -212,7 +212,7 @@ export default function AdminUsersIndex({
                                                 <Badge
                                                     className={`text-[10px] uppercase font-bold ${
                                                         u.role === 'admin'
-                                                            ? 'bg-emerald-600 text-white'
+                                                            ? 'bg-primary text-primary-foreground'
                                                             : u.role === 'agent'
                                                             ? 'bg-sky-600 text-white'
                                                             : 'bg-muted text-muted-foreground'
@@ -248,7 +248,7 @@ export default function AdminUsersIndex({
                                                     variant="outline"
                                                     size="sm"
                                                     onClick={() => handleOpenEdit(u)}
-                                                    className="h-8 px-2.5 rounded-xl text-xs gap-1.5"
+                                                    className="h-8 px-2.5 rounded-md text-xs gap-1.5"
                                                 >
                                                     <Edit className="size-3.5" />
                                                     <span>Edit Role</span>
@@ -281,7 +281,7 @@ export default function AdminUsersIndex({
                                                 variant={link.active ? 'default' : 'outline'}
                                                 size="sm"
                                                 className={`h-8 w-8 p-0 rounded-lg text-xs ${
-                                                    link.active ? 'bg-emerald-600 text-white font-bold' : ''
+                                                    link.active ? 'bg-primary text-primary-foreground font-bold' : ''
                                                 }`}
                                             >
                                                 <span dangerouslySetInnerHTML={{ __html: link.label }} />
@@ -296,7 +296,7 @@ export default function AdminUsersIndex({
 
                 {/* Edit Role Dialog */}
                 <Dialog open={editingUser !== null} onOpenChange={(open) => !open && setEditingUser(null)}>
-                    <DialogContent className="rounded-3xl max-w-lg">
+                    <DialogContent className="rounded-md max-w-lg">
                         <DialogHeader>
                             <DialogTitle>Edit User Profile & Role</DialogTitle>
                             <DialogDescription>
@@ -312,7 +312,7 @@ export default function AdminUsersIndex({
                                         value={editForm.data.role}
                                         onValueChange={(val) => editForm.setData('role', val)}
                                     >
-                                        <SelectTrigger className="rounded-xl">
+                                        <SelectTrigger className="rounded-md">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -331,7 +331,7 @@ export default function AdminUsersIndex({
                                         placeholder="+1 (555) 000-0000"
                                         value={editForm.data.phone}
                                         onChange={(e) => editForm.setData('phone', e.target.value)}
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                     />
                                 </div>
 
@@ -343,7 +343,7 @@ export default function AdminUsersIndex({
                                         placeholder="Professional experience, awards, specialization..."
                                         value={editForm.data.bio}
                                         onChange={(e) => editForm.setData('bio', e.target.value)}
-                                        className="w-full px-3 py-2 text-sm bg-background border border-input rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
+                                        className="w-full px-3 py-2 text-sm bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring/50 resize-none"
                                     />
                                 </div>
 
@@ -352,14 +352,14 @@ export default function AdminUsersIndex({
                                         type="button"
                                         variant="outline"
                                         onClick={() => setEditingUser(null)}
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                     >
                                         Cancel
                                     </Button>
                                     <Button
                                         type="submit"
                                         disabled={editForm.processing}
-                                        className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md gap-2"
+                                        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md gap-2"
                                     >
                                         <Save className="size-4" />
                                         <span>{editForm.processing ? 'Saving...' : 'Save User'}</span>

@@ -37,7 +37,7 @@ export default function ResetPassword({ token, email, passwordRules }: Props) {
                                 name="email"
                                 autoComplete="email"
                                 value={email}
-                                className="mt-1 block w-full rounded-xl"
+                                className="mt-1 block w-full rounded-md"
                                 readOnly
                             />
                             <InputError
@@ -52,7 +52,7 @@ export default function ResetPassword({ token, email, passwordRules }: Props) {
                                 id="password"
                                 name="password"
                                 autoComplete="new-password"
-                                className="mt-1 block w-full rounded-xl"
+                                className="mt-1 block w-full rounded-md"
                                 autoFocus
                                 placeholder="Password"
                                 passwordrules={passwordRules}
@@ -68,7 +68,7 @@ export default function ResetPassword({ token, email, passwordRules }: Props) {
                                 id="password_confirmation"
                                 name="password_confirmation"
                                 autoComplete="new-password"
-                                className="mt-1 block w-full rounded-xl"
+                                className="mt-1 block w-full rounded-md"
                                 placeholder="Confirm password"
                                 passwordrules={passwordRules}
                             />
@@ -80,7 +80,7 @@ export default function ResetPassword({ token, email, passwordRules }: Props) {
 
                         <Button
                             type="submit"
-                            className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold"
+                            className="mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-md font-semibold"
                             disabled={processing}
                             data-test="reset-password-button"
                         >

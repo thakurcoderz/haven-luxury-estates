@@ -38,7 +38,7 @@ export default function SavedProperties({ properties }: SavedPropertiesProps) {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-20 px-4 bg-card border border-dashed border-border rounded-3xl space-y-4 max-w-md mx-auto">
+                    <div className="text-center py-20 px-4 bg-card border border-dashed border-border rounded-md space-y-4 max-w-md mx-auto">
                         <div className="size-16 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto">
                             <HeartOff className="size-8" />
                         </div>
@@ -47,7 +47,7 @@ export default function SavedProperties({ properties }: SavedPropertiesProps) {
                             You haven't added any properties to your saved favorites. Click the heart icon on any listing to save it here for later.
                         </p>
                         <Link href="/properties">
-                            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold gap-2">
+                            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md text-xs font-semibold gap-2">
                                 <Compass className="size-4" />
                                 <span>Browse Catalog</span>
                             </Button>

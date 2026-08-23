@@ -153,7 +153,7 @@ export default function AdminPropertyEdit({
 
                     <div className="flex items-center gap-3">
                         <Link href={`/properties/${property.slug}`} target="_blank">
-                            <Button variant="outline" size="sm" className="rounded-xl gap-1.5 text-xs">
+                            <Button variant="outline" size="sm" className="rounded-md gap-1.5 text-xs">
                                 <ExternalLink className="size-3.5" />
                                 <span>Preview Live</span>
                             </Button>
@@ -162,7 +162,7 @@ export default function AdminPropertyEdit({
                             type="submit"
                             form="property-edit-form"
                             disabled={processing}
-                            className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md gap-2"
+                            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md shadow-md gap-2"
                         >
                             <Save className="size-4" />
                             <span>{processing ? 'Saving...' : 'Update Listing'}</span>
@@ -172,9 +172,9 @@ export default function AdminPropertyEdit({
 
                 <form id="property-edit-form" onSubmit={submit} className="space-y-8">
                     {/* Section 1: Basic Information */}
-                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <h3 className="text-base font-bold text-foreground border-b border-border pb-3 flex items-center gap-2">
-                            <Building2 className="size-4.5 text-emerald-600" />
+                            <Building2 className="size-4.5 text-brand" />
                             <span>Basic Information & Classification</span>
                         </h3>
 
@@ -187,7 +187,7 @@ export default function AdminPropertyEdit({
                                     value={data.title}
                                     onChange={(e) => setData('title', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.title} />
                             </div>
@@ -198,7 +198,7 @@ export default function AdminPropertyEdit({
                                     value={data.property_type_id}
                                     onValueChange={(val) => setData('property_type_id', val)}
                                 >
-                                    <SelectTrigger className="rounded-xl">
+                                    <SelectTrigger className="rounded-md">
                                         <SelectValue placeholder="Select Category" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -218,7 +218,7 @@ export default function AdminPropertyEdit({
                                     value={data.user_id}
                                     onValueChange={(val) => setData('user_id', val)}
                                 >
-                                    <SelectTrigger className="rounded-xl">
+                                    <SelectTrigger className="rounded-md">
                                         <SelectValue placeholder="Assign Agent" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -240,7 +240,7 @@ export default function AdminPropertyEdit({
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}
                                     required
-                                    className="w-full px-3 py-2 text-sm bg-background border border-input rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                                    className="w-full px-3 py-2 text-sm bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring/50"
                                 />
                                 <InputError message={errors.description} />
                             </div>
@@ -248,9 +248,9 @@ export default function AdminPropertyEdit({
                     </div>
 
                     {/* Section 2: Pricing & Status */}
-                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <h3 className="text-base font-bold text-foreground border-b border-border pb-3 flex items-center gap-2">
-                            <DollarSign className="size-4.5 text-emerald-600" />
+                            <DollarSign className="size-4.5 text-brand" />
                             <span>Pricing & Availability</span>
                         </h3>
 
@@ -264,7 +264,7 @@ export default function AdminPropertyEdit({
                                     value={data.price}
                                     onChange={(e) => setData('price', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.price} />
                             </div>
@@ -275,7 +275,7 @@ export default function AdminPropertyEdit({
                                     value={data.price_type}
                                     onValueChange={(val) => setData('price_type', val)}
                                 >
-                                    <SelectTrigger className="rounded-xl">
+                                    <SelectTrigger className="rounded-md">
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -293,7 +293,7 @@ export default function AdminPropertyEdit({
                                         value={data.rent_period}
                                         onValueChange={(val) => setData('rent_period', val)}
                                     >
-                                        <SelectTrigger className="rounded-xl">
+                                        <SelectTrigger className="rounded-md">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -311,7 +311,7 @@ export default function AdminPropertyEdit({
                                     value={data.status}
                                     onValueChange={(val) => setData('status', val)}
                                 >
-                                    <SelectTrigger className="rounded-xl">
+                                    <SelectTrigger className="rounded-md">
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -338,9 +338,9 @@ export default function AdminPropertyEdit({
                     </div>
 
                     {/* Section 3: Physical Specifications */}
-                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <h3 className="text-base font-bold text-foreground border-b border-border pb-3 flex items-center gap-2">
-                            <Maximize className="size-4.5 text-emerald-600" />
+                            <Maximize className="size-4.5 text-brand" />
                             <span>Physical Specifications</span>
                         </h3>
 
@@ -354,7 +354,7 @@ export default function AdminPropertyEdit({
                                     value={data.bedrooms}
                                     onChange={(e) => setData('bedrooms', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.bedrooms} />
                             </div>
@@ -369,7 +369,7 @@ export default function AdminPropertyEdit({
                                     value={data.bathrooms}
                                     onChange={(e) => setData('bathrooms', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.bathrooms} />
                             </div>
@@ -383,7 +383,7 @@ export default function AdminPropertyEdit({
                                     value={data.area_sqft}
                                     onChange={(e) => setData('area_sqft', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.area_sqft} />
                             </div>
@@ -396,7 +396,7 @@ export default function AdminPropertyEdit({
                                     min="0"
                                     value={data.garages}
                                     onChange={(e) => setData('garages', e.target.value)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                             </div>
 
@@ -407,16 +407,16 @@ export default function AdminPropertyEdit({
                                     type="number"
                                     value={data.year_built}
                                     onChange={(e) => setData('year_built', e.target.value)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                             </div>
                         </div>
                     </div>
 
                     {/* Section 4: Location & Address */}
-                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <h3 className="text-base font-bold text-foreground border-b border-border pb-3 flex items-center gap-2">
-                            <MapPin className="size-4.5 text-emerald-600" />
+                            <MapPin className="size-4.5 text-brand" />
                             <span>Location & Coordinates</span>
                         </h3>
 
@@ -429,7 +429,7 @@ export default function AdminPropertyEdit({
                                     value={data.address}
                                     onChange={(e) => setData('address', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.address} />
                             </div>
@@ -442,7 +442,7 @@ export default function AdminPropertyEdit({
                                     value={data.city}
                                     onChange={(e) => setData('city', e.target.value)}
                                     required
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.city} />
                             </div>
@@ -454,7 +454,7 @@ export default function AdminPropertyEdit({
                                     type="text"
                                     value={data.state}
                                     onChange={(e) => setData('state', e.target.value)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                             </div>
 
@@ -465,7 +465,7 @@ export default function AdminPropertyEdit({
                                     type="text"
                                     value={data.zip_code}
                                     onChange={(e) => setData('zip_code', e.target.value)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                             </div>
 
@@ -476,7 +476,7 @@ export default function AdminPropertyEdit({
                                     type="text"
                                     value={data.country}
                                     onChange={(e) => setData('country', e.target.value)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                             </div>
 
@@ -487,7 +487,7 @@ export default function AdminPropertyEdit({
                                     type="text"
                                     value={data.latitude}
                                     onChange={(e) => setData('latitude', e.target.value)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                             </div>
 
@@ -498,16 +498,16 @@ export default function AdminPropertyEdit({
                                     type="text"
                                     value={data.longitude}
                                     onChange={(e) => setData('longitude', e.target.value)}
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                             </div>
                         </div>
                     </div>
 
                     {/* Section 5: Amenities */}
-                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <h3 className="text-base font-bold text-foreground border-b border-border pb-3 flex items-center gap-2">
-                            <Sparkles className="size-4.5 text-emerald-600" />
+                            <Sparkles className="size-4.5 text-brand" />
                             <span>Amenities & Features</span>
                         </h3>
 
@@ -518,9 +518,9 @@ export default function AdminPropertyEdit({
                                     <label
                                         key={amenity}
                                         onClick={() => handleAmenityToggle(amenity)}
-                                        className={`flex items-center gap-2.5 p-3 rounded-xl border text-xs font-medium cursor-pointer transition-all ${
+                                        className={`flex items-center gap-2.5 p-3 rounded-md border text-xs font-medium cursor-pointer transition-all ${
                                             isChecked
-                                                ? 'bg-emerald-500/10 border-emerald-500 text-emerald-800 dark:text-emerald-300 font-semibold'
+                                                ? 'bg-brand-soft border-brand text-foreground font-semibold'
                                                 : 'bg-muted/40 border-border text-muted-foreground hover:bg-muted'
                                         }`}
                                     >
@@ -533,9 +533,9 @@ export default function AdminPropertyEdit({
                     </div>
 
                     {/* Section 6: Image Gallery & Video */}
-                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="bg-card border border-border rounded-md p-6 shadow-sm space-y-6">
                         <h3 className="text-base font-bold text-foreground border-b border-border pb-3 flex items-center gap-2">
-                            <ImageIcon className="size-4.5 text-emerald-600" />
+                            <ImageIcon className="size-4.5 text-brand" />
                             <span>High-Resolution Photo Gallery & Video</span>
                         </h3>
 
@@ -547,12 +547,12 @@ export default function AdminPropertyEdit({
                                     placeholder="Enter Image URL (e.g. https://images.unsplash.com/...)"
                                     value={newImageUrl}
                                     onChange={(e) => setNewImageUrl(e.target.value)}
-                                    className="rounded-xl text-xs"
+                                    className="rounded-md text-xs"
                                 />
                                 <Button
                                     type="button"
                                     onClick={handleAddImage}
-                                    className="bg-muted hover:bg-muted/80 text-foreground text-xs rounded-xl gap-1 shrink-0"
+                                    className="bg-muted hover:bg-muted/80 text-foreground text-xs rounded-md gap-1 shrink-0"
                                 >
                                     <Plus className="size-4" />
                                     <span>Add Image</span>
@@ -564,7 +564,7 @@ export default function AdminPropertyEdit({
                                 {data.images.map((img, idx) => (
                                     <div
                                         key={idx}
-                                        className="group relative aspect-[16/10] rounded-xl overflow-hidden bg-muted border border-border"
+                                        className="group relative aspect-[16/10] rounded-md overflow-hidden bg-muted border border-border"
                                     >
                                         <img src={img} alt={`Preview ${idx + 1}`} className="w-full h-full object-cover" />
                                         <button
@@ -588,7 +588,7 @@ export default function AdminPropertyEdit({
                                     type="url"
                                     value={data.video_url}
                                     onChange={(e) => setData('video_url', e.target.value)}
-                                    className="rounded-xl text-xs"
+                                    className="rounded-md text-xs"
                                 />
                             </div>
                         </div>
@@ -597,14 +597,14 @@ export default function AdminPropertyEdit({
                     {/* Submit Row */}
                     <div className="flex justify-end gap-3 pt-4">
                         <Link href="/admin/properties">
-                            <Button variant="outline" type="button" className="rounded-xl">
+                            <Button variant="outline" type="button" className="rounded-md">
                                 Cancel
                             </Button>
                         </Link>
                         <Button
                             type="submit"
                             disabled={processing}
-                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-md gap-2"
+                            className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold rounded-md shadow-md gap-2"
                         >
                             <Save className="size-4" />
                             <span>{processing ? 'Saving...' : 'Update Property'}</span>

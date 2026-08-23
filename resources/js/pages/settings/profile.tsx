@@ -52,7 +52,7 @@ export default function Profile({
                                     <Label htmlFor="name">Full Name</Label>
                                     <Input
                                         id="name"
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                         defaultValue={user?.name}
                                         name="name"
                                         required
@@ -67,7 +67,7 @@ export default function Profile({
                                     <Input
                                         id="email"
                                         type="email"
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                         defaultValue={user?.email}
                                         name="email"
                                         required
@@ -84,7 +84,7 @@ export default function Profile({
                                     <Input
                                         id="phone"
                                         type="tel"
-                                        className="rounded-xl"
+                                        className="rounded-md"
                                         defaultValue={user?.phone ?? ''}
                                         name="phone"
                                         placeholder="+1 (555) 234-5678"
@@ -96,7 +96,7 @@ export default function Profile({
                                     <Label htmlFor="role">Account Type</Label>
                                     <Input
                                         id="role"
-                                        className="rounded-xl bg-muted/60 capitalize"
+                                        className="rounded-md bg-muted/60 capitalize"
                                         defaultValue={user?.role ?? 'Client'}
                                         disabled
                                     />
@@ -111,13 +111,13 @@ export default function Profile({
                                     rows={3}
                                     defaultValue={user?.bio ?? ''}
                                     placeholder="Tell our agents about your desired neighborhoods, budget range, and timeline..."
-                                    className="w-full rounded-2xl border border-input bg-background px-3.5 py-2.5 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                                    className="w-full rounded-md border border-input bg-background px-3.5 py-2.5 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                                 />
                                 <InputError message={errors.bio} />
                             </div>
 
                             {mustVerifyEmail && user?.email_verified_at === null && (
-                                <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+                                <div className="p-4 rounded-md bg-amber-500/10 border border-amber-500/30">
                                     <p className="text-xs text-amber-800 dark:text-amber-300">
                                         Your email address is unverified.{' '}
                                         <Link
@@ -130,7 +130,7 @@ export default function Profile({
                                     </p>
 
                                     {status === 'verification-link-sent' && (
-                                        <div className="mt-2 text-xs font-bold text-emerald-600">
+                                        <div className="mt-2 text-xs font-bold text-brand">
                                             A new verification link has been sent to your email address.
                                         </div>
                                     )}
@@ -140,7 +140,7 @@ export default function Profile({
                             <div className="flex items-center gap-4 pt-2">
                                 <Button
                                     disabled={processing}
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-xs px-6"
+                                    className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md font-semibold text-xs px-6"
                                     data-test="update-profile-button"
                                 >
                                     Save Changes
