@@ -19,6 +19,13 @@ export type Auth = {
     user: User;
 };
 
+/** Seeded one-click sign in accounts. Present outside production only. */
+export type DemoAccount = {
+    name: string;
+    role: string;
+    description: string;
+};
+
 /* @chisel-passkeys */
 export type Passkey = {
     id: number;

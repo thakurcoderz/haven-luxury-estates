@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DemoLoginController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController;
@@ -16,6 +17,12 @@ Route::get('/properties/{property:slug}', [PropertyController::class, 'show'])->
 Route::post('/enquiries', [EnquiryController::class, 'store'])->name('enquiries.store');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+// Demo sign in. Registered only outside production, and the controller
+// re-checks the environment before issuing a session.
+if (DemoLoginController::isAvailable()) {
+    Route::post('/demo-login', DemoLoginController::class)->name('demo-login');
+}
 
 // Authenticated User Routes
 Route::middleware(['auth'])->group(function () {

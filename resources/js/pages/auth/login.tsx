@@ -1,4 +1,5 @@
 import { Form, Head } from '@inertiajs/react';
+import DemoLogins from '@/components/demo-logins';
 import InputError from '@/components/input-error';
 import PasskeyVerify from '@/components/passkey-verify';
 import PasswordInput from '@/components/password-input';
@@ -47,7 +48,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     tabIndex={1}
                                     autoComplete="email"
                                     placeholder="email@example.com"
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -72,7 +73,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     tabIndex={2}
                                     autoComplete="current-password"
                                     placeholder="Password"
-                                    className="rounded-xl"
+                                    className="rounded-md"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -88,7 +89,7 @@ export default function Login({ status, canResetPassword }: Props) {
 
                             <Button
                                 type="submit"
-                                className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold"
+                                className="mt-4 w-full rounded-md bg-primary font-semibold text-primary-foreground hover:bg-primary/90"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
@@ -100,13 +101,19 @@ export default function Login({ status, canResetPassword }: Props) {
 
                         <div className="text-center text-sm text-muted-foreground">
                             Don't have an account?{' '}
-                            <TextLink href={register()} tabIndex={5} className="text-emerald-600 font-semibold hover:underline">
+                            <TextLink
+                                href={register()}
+                                tabIndex={5}
+                                className="font-semibold text-brand hover:underline"
+                            >
                                 Sign up
                             </TextLink>
                         </div>
                     </>
                 )}
             </Form>
+
+            <DemoLogins />
 
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
@@ -116,4 +123,3 @@ export default function Login({ status, canResetPassword }: Props) {
         </AuthLayout>
     );
 }
-

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\DemoLoginController;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -47,6 +48,10 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn () => $request->session()->get('message'),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            // Absent entirely in production, so the login screen has nothing to render.
+            ...(DemoLoginController::isAvailable()
+                ? ['demoAccounts' => DemoLoginController::accounts()]
+                : []),
         ];
     }
 }
