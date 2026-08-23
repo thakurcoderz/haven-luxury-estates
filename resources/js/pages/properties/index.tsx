@@ -1,15 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import {
-    Building2,
-    ChevronLeft,
-    ChevronRight,
-    Compass,
-    Home,
-    MapPin,
-    SearchX,
-    SlidersHorizontal,
-    Sparkles,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React from 'react';
 import PropertyCard from '@/components/property-card';
 import PropertyFilterBar from '@/components/property-filter-bar';
@@ -40,131 +30,155 @@ export default function PropertiesIndex({
     cities = [],
     filters,
 }: PropertiesIndexProps) {
+    const heading =
+        filters.price_type === 'sale'
+            ? 'Homes for sale'
+            : filters.price_type === 'rent'
+              ? 'Homes for rent'
+              : 'All listings';
+
     return (
         <GuestLayout>
-            <Head title="Explore Real Estate Listings | Haven Real Estate" />
+            <Head title={`${heading} | Haven Estates`} />
 
-            {/* Page Header */}
-            <div className="bg-muted/40 border-b border-border py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto space-y-2">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                        <Compass className="size-3.5" />
-                        <span>Property Catalog</span>
-                    </div>
-                    <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-                        {filters.price_type === 'sale'
-                            ? 'Properties For Sale'
-                            : filters.price_type === 'rent'
-                            ? 'Properties For Rent'
-                            : 'All Real Estate Listings'}
+            <div className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 lg:px-10 lg:py-16">
+                <header className="mb-10 flex flex-wrap items-baseline justify-between gap-4">
+                    <h1 className="font-serif text-4xl leading-tight font-semibold tracking-[-0.01em] text-foreground sm:text-5xl">
+                        {heading}
                     </h1>
-                    <p className="text-sm text-muted-foreground max-w-2xl">
-                        Showing {properties.total} verified {properties.total === 1 ? 'residence' : 'residences'} matching your criteria in prime neighborhoods.
+                    <p className="text-sm text-muted-foreground">
+                        <span className="text-foreground tabular-nums">
+                            {properties.total.toLocaleString()}
+                        </span>{' '}
+                        {properties.total === 1 ? 'property' : 'properties'}
                     </p>
-                </div>
-            </div>
+                </header>
 
-            {/* Main Content Area */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                {/* Search & Filter Bar */}
                 <PropertyFilterBar
                     propertyTypes={propertyTypes}
                     cities={cities}
                     filters={filters}
                 />
 
-                {/* Property Grid or Empty State */}
                 {properties.data.length > 0 ? (
-                    <div className="space-y-12">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <>
+                        <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
                             {properties.data.map((property) => (
-                                <PropertyCard key={property.id} property={property} />
+                                <PropertyCard
+                                    key={property.id}
+                                    property={property}
+                                />
                             ))}
                         </div>
 
-                        {/* Pagination */}
                         {properties.links.length > 3 && (
-                            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border">
-                                <p className="text-xs text-muted-foreground">
-                                    Showing <span className="font-semibold text-foreground">{properties.from || 0}</span> to{' '}
-                                    <span className="font-semibold text-foreground">{properties.to || 0}</span> of{' '}
-                                    <span className="font-semibold text-foreground">{properties.total}</span> listings
+                            <nav
+                                aria-label="Pagination"
+                                className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-border pt-8 sm:flex-row"
+                            >
+                                <p className="text-sm text-muted-foreground tabular-nums">
+                                    {properties.from ?? 0} to{' '}
+                                    {properties.to ?? 0} of{' '}
+                                    {properties.total.toLocaleString()}
                                 </p>
 
-                                <div className="flex items-center gap-1.5">
-                                    {properties.links.map((link, i) => {
-                                        if (link.label.includes('Previous')) {
-                                            return link.url ? (
-                                                <Link key={i} href={link.url} preserveScroll>
-                                                    <Button variant="outline" size="sm" className="h-9 px-3 gap-1 rounded-xl">
-                                                        <ChevronLeft className="size-4" />
-                                                        <span className="hidden sm:inline">Prev</span>
-                                                    </Button>
-                                                </Link>
-                                            ) : (
-                                                <Button key={i} variant="outline" size="sm" disabled className="h-9 px-3 gap-1 rounded-xl opacity-50">
-                                                    <ChevronLeft className="size-4" />
-                                                    <span className="hidden sm:inline">Prev</span>
-                                                </Button>
-                                            );
-                                        }
+                                <div className="flex items-center gap-1">
+                                    {properties.links.map((link, index) => {
+                                        const isPrevious =
+                                            link.label.includes('Previous');
+                                        const isNext =
+                                            link.label.includes('Next');
 
-                                        if (link.label.includes('Next')) {
-                                            return link.url ? (
-                                                <Link key={i} href={link.url} preserveScroll>
-                                                    <Button variant="outline" size="sm" className="h-9 px-3 gap-1 rounded-xl">
-                                                        <span className="hidden sm:inline">Next</span>
-                                                        <ChevronRight className="size-4" />
-                                                    </Button>
-                                                </Link>
-                                            ) : (
-                                                <Button key={i} variant="outline" size="sm" disabled className="h-9 px-3 gap-1 rounded-xl opacity-50">
-                                                    <span className="hidden sm:inline">Next</span>
-                                                    <ChevronRight className="size-4" />
-                                                </Button>
-                                            );
-                                        }
+                                        if (isPrevious || isNext) {
+                                            const Icon = isPrevious
+                                                ? ChevronLeft
+                                                : ChevronRight;
+                                            const label = isPrevious
+                                                ? 'Previous'
+                                                : 'Next';
 
-                                        return link.url ? (
-                                            <Link key={i} href={link.url} preserveScroll>
-                                                <Button
-                                                    variant={link.active ? 'default' : 'outline'}
-                                                    size="sm"
-                                                    className={`h-9 w-9 p-0 rounded-xl ${
-                                                        link.active
-                                                            ? 'bg-emerald-600 hover:bg-emerald-700 text-white font-bold'
-                                                            : ''
-                                                    }`}
+                                            if (!link.url) {
+                                                return (
+                                                    <span
+                                                        key={index}
+                                                        aria-disabled
+                                                        className="flex size-9 items-center justify-center text-muted-foreground/40"
+                                                    >
+                                                        <Icon
+                                                            className="size-4"
+                                                            strokeWidth={1.5}
+                                                        />
+                                                        <span className="sr-only">
+                                                            {label}
+                                                        </span>
+                                                    </span>
+                                                );
+                                            }
+
+                                            return (
+                                                <Link
+                                                    key={index}
+                                                    href={link.url}
+                                                    preserveScroll
+                                                    aria-label={label}
+                                                    className="flex size-9 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                                                 >
-                                                    <span dangerouslySetInnerHTML={{ __html: link.label }} />
-                                                </Button>
+                                                    <Icon
+                                                        className="size-4"
+                                                        strokeWidth={1.5}
+                                                    />
+                                                </Link>
+                                            );
+                                        }
+
+                                        if (!link.url) {
+                                            return (
+                                                <span
+                                                    key={index}
+                                                    className="px-2 text-sm text-muted-foreground"
+                                                >
+                                                    &hellip;
+                                                </span>
+                                            );
+                                        }
+
+                                        return (
+                                            <Link
+                                                key={index}
+                                                href={link.url}
+                                                preserveScroll
+                                                aria-current={
+                                                    link.active
+                                                        ? 'page'
+                                                        : undefined
+                                                }
+                                                className={`flex size-9 items-center justify-center rounded-sm text-sm tabular-nums transition-colors ${
+                                                    link.active
+                                                        ? 'bg-primary text-primary-foreground'
+                                                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                                }`}
+                                            >
+                                                {link.label}
                                             </Link>
-                                        ) : (
-                                            <span
-                                                key={i}
-                                                className="px-2 text-xs text-muted-foreground"
-                                                dangerouslySetInnerHTML={{ __html: link.label }}
-                                            />
                                         );
                                     })}
                                 </div>
-                            </div>
+                            </nav>
                         )}
-                    </div>
+                    </>
                 ) : (
-                    <div className="text-center py-20 px-4 bg-card border border-dashed border-border rounded-3xl space-y-4 max-w-md mx-auto">
-                        <div className="size-16 rounded-full bg-muted flex items-center justify-center mx-auto text-muted-foreground">
-                            <SearchX className="size-8 text-muted-foreground" />
-                        </div>
-                        <h3 className="text-xl font-bold text-foreground">No Listings Found</h3>
-                        <p className="text-xs text-muted-foreground max-w-sm mx-auto">
-                            We couldn't find any properties matching your current filter criteria. Try adjusting the price range, location, or bedrooms.
+                    <div className="mx-auto mt-20 mb-16 max-w-md text-center">
+                        <h2 className="font-serif text-3xl font-semibold text-foreground">
+                            Nothing matches yet
+                        </h2>
+                        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                            No properties fit this combination of filters.
+                            Widening the price range or clearing the market
+                            usually brings results back.
                         </p>
-                        <Link href="/properties">
-                            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold">
-                                Clear All Filters
-                            </Button>
-                        </Link>
+                        <Button asChild className="mt-8 h-10 px-6">
+                            <Link href="/properties">Clear all filters</Link>
+                        </Button>
                     </div>
                 )}
             </div>

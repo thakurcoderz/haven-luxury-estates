@@ -1,19 +1,6 @@
-import { Head, Link } from '@inertiajs/react';
-import {
-    Clock,
-    Globe,
-    HelpCircle,
-    Mail,
-    MapPin,
-    MessageSquare,
-    Phone,
-    Send,
-    Shield,
-    Sparkles,
-} from 'lucide-react';
+import { Head } from '@inertiajs/react';
 import React from 'react';
 import EnquiryForm from '@/components/enquiry-form';
-import { Badge } from '@/components/ui/badge';
 import GuestLayout from '@/layouts/guest-layout';
 import type { User } from '@/types';
 
@@ -21,115 +8,105 @@ interface ContactProps {
     agents: User[];
 }
 
-export default function Contact({ agents = [] }: ContactProps) {
-    const offices = [
-        {
-            city: 'Beverly Hills, CA',
-            address: '450 North Canon Drive, Suite 300, Beverly Hills, CA 90210',
-            phone: '+1 (310) 555-8900',
-            email: 'beverlyhills@havenrealestate.com',
-            hours: 'Mon - Sat: 8:00 AM - 7:00 PM PST',
-        },
-        {
-            city: 'Miami Beach, FL',
-            address: '1421 Brickell Avenue, 18th Floor, Miami, FL 33131',
-            phone: '+1 (305) 555-4200',
-            email: 'miami@havenrealestate.com',
-            hours: 'Mon - Sat: 8:30 AM - 7:30 PM EST',
-        },
-        {
-            city: 'New York, NY',
-            address: '77 Franklin Street, Penthouse Floor, New York, NY 10013',
-            phone: '+1 (212) 555-7300',
-            email: 'newyork@havenrealestate.com',
-            hours: 'Mon - Fri: 8:00 AM - 8:00 PM EST',
-        },
-    ];
+const OFFICES = [
+    {
+        city: 'Beverly Hills',
+        address: '450 North Canon Drive, Suite 300, Beverly Hills, CA 90210',
+        phone: '+1 (310) 555-8900',
+        email: 'beverlyhills@havenrealestate.com',
+        hours: 'Monday to Saturday, 8:00 to 19:00 PT',
+    },
+    {
+        city: 'Miami',
+        address: '1421 Brickell Avenue, 18th Floor, Miami, FL 33131',
+        phone: '+1 (305) 555-4200',
+        email: 'miami@havenrealestate.com',
+        hours: 'Monday to Saturday, 8:30 to 19:30 ET',
+    },
+    {
+        city: 'New York',
+        address: '77 Franklin Street, Penthouse Floor, New York, NY 10013',
+        phone: '+1 (212) 555-7300',
+        email: 'newyork@havenrealestate.com',
+        hours: 'Monday to Friday, 8:00 to 20:00 ET',
+    },
+];
 
+export default function Contact({ agents = [] }: ContactProps) {
     return (
         <GuestLayout>
-            <Head title="Contact Us & Inquiries | Haven Real Estate" />
+            <Head title="Contact | Haven Estates" />
 
-            {/* Header */}
-            <div className="bg-muted/40 border-b border-border py-14 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto text-center space-y-3">
-                    <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                        <Mail className="size-3.5" />
-                        <span>Direct Communication</span>
-                    </div>
-                    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-                        Connect With Our Brokerage
+            <section className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 lg:px-10 lg:py-20">
+                <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+                    <h1 className="font-serif text-4xl leading-[1.08] font-semibold tracking-[-0.015em] text-foreground sm:text-5xl lg:col-span-6 lg:text-6xl">
+                        Talk to an advisor.
                     </h1>
-                    <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
-                        Whether you are acquiring a signature residence, exploring off-market assets, or requesting a discreet valuation, our luxury specialists are at your service.
+                    <p className="max-w-md text-base leading-relaxed text-muted-foreground lg:col-span-6 lg:self-end">
+                        Buying, selling, letting, or just want a valuation. Send
+                        a message or call the nearest office directly.
+                        {agents.length > 0 &&
+                            ` ${agents.length} advisors are on the roster.`}
                     </p>
                 </div>
-            </div>
+            </section>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
-                {/* Two Columns: Contact Info & General Inquiry Form */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    {/* Left Column: Office Contacts & Agents */}
-                    <div className="lg:col-span-6 space-y-8">
-                        <div>
-                            <h2 className="text-2xl font-bold tracking-tight text-foreground mb-2">
-                                Principal Regional Offices
-                            </h2>
-                            <p className="text-sm text-muted-foreground">
-                                Our regional flagship offices offer confidential conference facilities and bespoke buyer concierge services.
-                            </p>
-                        </div>
+            <div className="mx-auto max-w-[1400px] px-4 pb-20 sm:px-6 lg:px-10 lg:pb-28">
+                <div className="grid gap-12 border-t border-border pt-12 lg:grid-cols-12 lg:gap-16">
+                    <div className="lg:col-span-6 xl:col-span-7">
+                        <h2 className="font-serif text-3xl font-semibold text-foreground">
+                            Offices
+                        </h2>
 
-                        <div className="space-y-4">
-                            {offices.map((office, i) => (
-                                <div
-                                    key={i}
-                                    className="bg-card border border-border/80 rounded-2xl p-6 shadow-sm space-y-3"
+                        <ul className="mt-8 space-y-8">
+                            {OFFICES.map((office) => (
+                                <li
+                                    key={office.city}
+                                    className="border-t border-border pt-6"
                                 >
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="text-base font-bold text-foreground flex items-center gap-2">
-                                            <MapPin className="size-4 text-emerald-600" />
-                                            {office.city}
-                                        </h3>
-                                        <Badge variant="secondary" className="text-[10px]">
-                                            Flagship Office
-                                        </Badge>
-                                    </div>
-                                    <p className="text-xs text-muted-foreground leading-relaxed">
+                                    <h3 className="text-lg font-medium text-foreground">
+                                        {office.city}
+                                    </h3>
+                                    <address className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground not-italic">
                                         {office.address}
-                                    </p>
-                                    <div className="pt-2 border-t border-border/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
-                                        <span className="flex items-center gap-1.5">
-                                            <Phone className="size-3.5 text-emerald-600" />
+                                    </address>
+
+                                    <div className="mt-4 flex flex-wrap gap-x-8 gap-y-2 text-sm">
+                                        <a
+                                            href={`tel:${office.phone.replace(/[^+\d]/g, '')}`}
+                                            className="rule-link text-foreground"
+                                        >
                                             {office.phone}
-                                        </span>
-                                        <span className="flex items-center gap-1.5 truncate">
-                                            <Mail className="size-3.5 text-emerald-600" />
+                                        </a>
+                                        <a
+                                            href={`mailto:${office.email}`}
+                                            className="rule-link text-foreground"
+                                        >
                                             {office.email}
-                                        </span>
+                                        </a>
                                     </div>
-                                </div>
+
+                                    <p className="mt-2 text-sm text-muted-foreground">
+                                        {office.hours}
+                                    </p>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
 
-                    {/* Right Column: General Enquiry Form */}
-                    <div className="lg:col-span-6">
-                        <div className="bg-card border border-border/80 rounded-3xl p-8 shadow-xl space-y-6">
-                            <div>
-                                <div className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1">
-                                    <MessageSquare className="size-3.5" />
-                                    <span>Inquiry Portal</span>
-                                </div>
-                                <h3 className="text-2xl font-bold text-foreground">
-                                    Send Us a Message
-                                </h3>
-                                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                                    Complete the form below and a managing partner will review and reply within 4 business hours.
-                                </p>
-                            </div>
+                    <div className="lg:col-span-6 xl:col-span-5">
+                        <div className="border border-border bg-card p-6 lg:p-8">
+                            <h2 className="font-serif text-3xl font-semibold text-foreground">
+                                Send a message
+                            </h2>
+                            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                                An advisor reads every message and replies
+                                within one working day.
+                            </p>
 
-                            <EnquiryForm />
+                            <div className="mt-7">
+                                <EnquiryForm />
+                            </div>
                         </div>
                     </div>
                 </div>

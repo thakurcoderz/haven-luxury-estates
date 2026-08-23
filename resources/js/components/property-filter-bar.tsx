@@ -1,18 +1,9 @@
 import { router } from '@inertiajs/react';
-import {
-    ArrowUpDown,
-    Bed,
-    Building2,
-    DollarSign,
-    Filter,
-    MapPin,
-    RotateCcw,
-    Search,
-    SlidersHorizontal,
-} from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
     Select,
     SelectContent,
@@ -39,6 +30,12 @@ interface PropertyFilterBarProps {
     onFilterChange?: () => void;
 }
 
+const PRICE_TYPES = [
+    { value: 'all', label: 'Everything' },
+    { value: 'sale', label: 'Buy' },
+    { value: 'rent', label: 'Rent' },
+];
+
 export default function PropertyFilterBar({
     propertyTypes,
     cities,
@@ -55,8 +52,10 @@ export default function PropertyFilterBar({
     const [sort, setSort] = useState(filters.sort || 'newest');
     const [expanded, setExpanded] = useState(false);
 
-    const applyFilters = (customParams?: Record<string, any>) => {
-        const queryParams: Record<string, any> = {
+    const applyFilters = (
+        customParams?: Record<string, string | undefined>,
+    ) => {
+        const queryParams: Record<string, string | undefined> = {
             search: search || undefined,
             type: type !== 'all' ? type : undefined,
             price_type: priceType !== 'all' ? priceType : undefined,
@@ -69,11 +68,10 @@ export default function PropertyFilterBar({
             ...customParams,
         };
 
-        // Filter out undefined/empty keys
-        const cleanedParams: Record<string, any> = {};
-        Object.keys(queryParams).forEach((key) => {
-            if (queryParams[key] !== undefined && queryParams[key] !== '') {
-                cleanedParams[key] = queryParams[key];
+        const cleanedParams: Record<string, string> = {};
+        Object.entries(queryParams).forEach(([key, value]) => {
+            if (value !== undefined && value !== '') {
+                cleanedParams[key] = value;
             }
         });
 
@@ -112,252 +110,261 @@ export default function PropertyFilterBar({
     ].filter(Boolean).length;
 
     return (
-        <div className="bg-card border border-border/80 rounded-2xl p-4 sm:p-6 shadow-sm mb-8">
-            <form onSubmit={handleSearchSubmit} className="space-y-4">
-                {/* Top Row: Search & Buy/Rent & Quick Submit */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
-                    {/* Buy / Rent / All Segmented Control */}
-                    <div className="md:col-span-3 flex p-1 bg-muted rounded-xl text-xs font-semibold">
+        <form
+            onSubmit={handleSearchSubmit}
+            className="border-b border-border pb-6"
+        >
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+                <div className="flex gap-1 rounded-sm border border-border p-1">
+                    {PRICE_TYPES.map((option) => (
                         <button
+                            key={option.value}
                             type="button"
                             onClick={() => {
-                                setPriceType('all');
-                                applyFilters({ price_type: undefined });
+                                setPriceType(option.value);
+                                applyFilters({
+                                    price_type:
+                                        option.value !== 'all'
+                                            ? option.value
+                                            : undefined,
+                                });
                             }}
-                            className={`flex-1 py-2 rounded-lg transition-all ${
-                                priceType === 'all'
-                                    ? 'bg-background text-foreground shadow-sm'
+                            aria-pressed={priceType === option.value}
+                            className={`rounded-sm px-4 py-1.5 text-sm transition-colors ${
+                                priceType === option.value
+                                    ? 'bg-primary text-primary-foreground'
                                     : 'text-muted-foreground hover:text-foreground'
                             }`}
                         >
-                            All
+                            {option.label}
                         </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setPriceType('sale');
-                                applyFilters({ price_type: 'sale' });
-                            }}
-                            className={`flex-1 py-2 rounded-lg transition-all ${
-                                priceType === 'sale'
-                                    ? 'bg-emerald-600 text-white shadow-sm'
-                                    : 'text-muted-foreground hover:text-foreground'
-                            }`}
-                        >
-                            For Sale
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setPriceType('rent');
-                                applyFilters({ price_type: 'rent' });
-                            }}
-                            className={`flex-1 py-2 rounded-lg transition-all ${
-                                priceType === 'rent'
-                                    ? 'bg-sky-600 text-white shadow-sm'
-                                    : 'text-muted-foreground hover:text-foreground'
-                            }`}
-                        >
-                            For Rent
-                        </button>
-                    </div>
+                    ))}
+                </div>
 
-                    {/* Search Input */}
-                    <div className="md:col-span-5 relative">
-                        <Search className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                        <Input
-                            type="text"
-                            placeholder="Search by neighborhood, title, city, zip code..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="pl-10 h-10 rounded-xl"
+                <div className="relative flex-1">
+                    <Label htmlFor="listing-search" className="sr-only">
+                        Search listings
+                    </Label>
+                    <Search
+                        className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+                        strokeWidth={1.5}
+                    />
+                    <Input
+                        id="listing-search"
+                        type="search"
+                        placeholder="Search by city, neighborhood, zip code, or listing name"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="h-10 pl-9"
+                    />
+                </div>
+
+                <div className="lg:w-52">
+                    <Label htmlFor="listing-type" className="sr-only">
+                        Property type
+                    </Label>
+                    <Select
+                        value={type}
+                        onValueChange={(value) => {
+                            setType(value);
+                            applyFilters({
+                                type: value !== 'all' ? value : undefined,
+                            });
+                        }}
+                    >
+                        <SelectTrigger
+                            id="listing-type"
+                            className="h-10 w-full"
+                        >
+                            <SelectValue placeholder="Any type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">Any type</SelectItem>
+                            {propertyTypes.map((propertyType) => (
+                                <SelectItem
+                                    key={propertyType.slug}
+                                    value={propertyType.slug}
+                                >
+                                    {propertyType.name}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="flex gap-2">
+                    <Button
+                        type="submit"
+                        className="h-10 flex-1 px-6 lg:flex-none"
+                    >
+                        Search
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setExpanded(!expanded)}
+                        aria-expanded={expanded}
+                        className={`h-10 gap-2 px-3 ${
+                            activeFilterCount > 0
+                                ? 'border-brand text-brand'
+                                : ''
+                        }`}
+                    >
+                        <SlidersHorizontal
+                            className="size-4"
+                            strokeWidth={1.5}
                         />
-                    </div>
+                        <span>Filters</span>
+                        {activeFilterCount > 0 && (
+                            <span className="tabular-nums">
+                                ({activeFilterCount})
+                            </span>
+                        )}
+                    </Button>
+                </div>
+            </div>
 
-                    {/* Property Type Dropdown */}
-                    <div className="md:col-span-2">
+            {expanded && (
+                <div className="mt-6 grid animate-in gap-4 border-t border-border pt-6 duration-200 fade-in slide-in-from-top-1 sm:grid-cols-2 lg:grid-cols-5">
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="filter-city">Market</Label>
                         <Select
-                            value={type}
-                            onValueChange={(val) => {
-                                setType(val);
-                                applyFilters({ type: val !== 'all' ? val : undefined });
+                            value={city}
+                            onValueChange={(value) => {
+                                setCity(value);
+                                applyFilters({
+                                    city: value !== 'all' ? value : undefined,
+                                });
                             }}
                         >
-                            <SelectTrigger className="h-10 rounded-xl">
-                                <SelectValue placeholder="All Categories" />
+                            <SelectTrigger
+                                id="filter-city"
+                                className="h-9 w-full"
+                            >
+                                <SelectValue placeholder="All markets" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Categories</SelectItem>
-                                {propertyTypes.map((pt) => (
-                                    <SelectItem key={pt.slug} value={pt.slug}>
-                                        {pt.name}
+                                <SelectItem value="all">All markets</SelectItem>
+                                {cities.map((entry) => (
+                                    <SelectItem key={entry} value={entry}>
+                                        {entry}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="md:col-span-2 flex items-center gap-2">
-                        <Button
-                            type="submit"
-                            className="flex-1 h-10 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-sm"
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="filter-bedrooms">Bedrooms</Label>
+                        <Select
+                            value={bedrooms}
+                            onValueChange={(value) => {
+                                setBedrooms(value);
+                                applyFilters({
+                                    bedrooms:
+                                        value !== 'all' ? value : undefined,
+                                });
+                            }}
                         >
-                            Search
-                        </Button>
+                            <SelectTrigger
+                                id="filter-bedrooms"
+                                className="h-9 w-full"
+                            >
+                                <SelectValue placeholder="Any" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">Any</SelectItem>
+                                {[1, 2, 3, 4, 5].map((count) => (
+                                    <SelectItem
+                                        key={count}
+                                        value={String(count)}
+                                    >
+                                        {count} or more
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="filter-min-price">Min price</Label>
+                        <Input
+                            id="filter-min-price"
+                            type="number"
+                            inputMode="numeric"
+                            placeholder="500000"
+                            value={minPrice}
+                            onChange={(e) => setMinPrice(e.target.value)}
+                            className="h-9"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="filter-max-price">Max price</Label>
+                        <Input
+                            id="filter-max-price"
+                            type="number"
+                            inputMode="numeric"
+                            placeholder="5000000"
+                            value={maxPrice}
+                            onChange={(e) => setMaxPrice(e.target.value)}
+                            className="h-9"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="filter-sort">Sort by</Label>
+                        <Select
+                            value={sort}
+                            onValueChange={(value) => {
+                                setSort(value);
+                                applyFilters({ sort: value });
+                            }}
+                        >
+                            <SelectTrigger
+                                id="filter-sort"
+                                className="h-9 w-full"
+                            >
+                                <SelectValue placeholder="Newest" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="newest">
+                                    Newest first
+                                </SelectItem>
+                                <SelectItem value="price_asc">
+                                    Price, low to high
+                                </SelectItem>
+                                <SelectItem value="price_desc">
+                                    Price, high to low
+                                </SelectItem>
+                                <SelectItem value="area_desc">
+                                    Largest first
+                                </SelectItem>
+                                <SelectItem value="oldest">
+                                    Oldest first
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-4 sm:col-span-2 lg:col-span-5">
+                        <button
+                            type="button"
+                            onClick={handleReset}
+                            className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                        >
+                            Reset filters
+                        </button>
                         <Button
                             type="button"
-                            variant="outline"
-                            onClick={() => setExpanded(!expanded)}
-                            className={`h-10 px-3 rounded-xl border-border ${
-                                expanded || activeFilterCount > 0
-                                    ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
-                                    : ''
-                            }`}
-                            title="More Filters"
+                            onClick={() => applyFilters()}
+                            className="h-9 px-5"
                         >
-                            <SlidersHorizontal className="size-4" />
-                            {activeFilterCount > 0 && (
-                                <span className="ml-1.5 size-4 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">
-                                    {activeFilterCount}
-                                </span>
-                            )}
+                            Apply
                         </Button>
                     </div>
                 </div>
-
-                {/* Expanded Advanced Filter Drawer */}
-                {expanded && (
-                    <div className="pt-4 mt-4 border-t border-border/70 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-                        {/* City Filter */}
-                        <div className="space-y-1">
-                            <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                                <MapPin className="size-3.5 text-emerald-600" /> City
-                            </label>
-                            <Select
-                                value={city}
-                                onValueChange={(val) => {
-                                    setCity(val);
-                                    applyFilters({ city: val !== 'all' ? val : undefined });
-                                }}
-                            >
-                                <SelectTrigger className="h-9 rounded-lg text-xs">
-                                    <SelectValue placeholder="All Cities" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="all">All Cities</SelectItem>
-                                    {cities.map((c) => (
-                                        <SelectItem key={c} value={c}>
-                                            {c}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        {/* Bedrooms */}
-                        <div className="space-y-1">
-                            <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                                <Bed className="size-3.5 text-emerald-600" /> Bedrooms
-                            </label>
-                            <Select
-                                value={bedrooms}
-                                onValueChange={(val) => {
-                                    setBedrooms(val);
-                                    applyFilters({ bedrooms: val !== 'all' ? val : undefined });
-                                }}
-                            >
-                                <SelectTrigger className="h-9 rounded-lg text-xs">
-                                    <SelectValue placeholder="Any Beds" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="all">Any Bedrooms</SelectItem>
-                                    <SelectItem value="1">1+ Bedrooms</SelectItem>
-                                    <SelectItem value="2">2+ Bedrooms</SelectItem>
-                                    <SelectItem value="3">3+ Bedrooms</SelectItem>
-                                    <SelectItem value="4">4+ Bedrooms</SelectItem>
-                                    <SelectItem value="5">5+ Bedrooms</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        {/* Price Range: Min */}
-                        <div className="space-y-1">
-                            <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                                <DollarSign className="size-3.5 text-emerald-600" /> Min Price
-                            </label>
-                            <Input
-                                type="number"
-                                placeholder="e.g. 500000"
-                                value={minPrice}
-                                onChange={(e) => setMinPrice(e.target.value)}
-                                className="h-9 rounded-lg text-xs"
-                            />
-                        </div>
-
-                        {/* Price Range: Max */}
-                        <div className="space-y-1">
-                            <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                                <DollarSign className="size-3.5 text-emerald-600" /> Max Price
-                            </label>
-                            <Input
-                                type="number"
-                                placeholder="e.g. 5000000"
-                                value={maxPrice}
-                                onChange={(e) => setMaxPrice(e.target.value)}
-                                className="h-9 rounded-lg text-xs"
-                            />
-                        </div>
-
-                        {/* Sort Order */}
-                        <div className="space-y-1">
-                            <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                                <ArrowUpDown className="size-3.5 text-emerald-600" /> Sort By
-                            </label>
-                            <Select
-                                value={sort}
-                                onValueChange={(val) => {
-                                    setSort(val);
-                                    applyFilters({ sort: val });
-                                }}
-                            >
-                                <SelectTrigger className="h-9 rounded-lg text-xs">
-                                    <SelectValue placeholder="Sort" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="newest">Newest First</SelectItem>
-                                    <SelectItem value="price_asc">Price: Low to High</SelectItem>
-                                    <SelectItem value="price_desc">Price: High to Low</SelectItem>
-                                    <SelectItem value="area_desc">Largest Area</SelectItem>
-                                    <SelectItem value="oldest">Oldest First</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        {/* Reset Row */}
-                        <div className="sm:col-span-2 lg:col-span-5 flex justify-end gap-2 pt-2">
-                            <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                onClick={handleReset}
-                                className="text-xs text-muted-foreground hover:text-foreground gap-1.5"
-                            >
-                                <RotateCcw className="size-3.5" />
-                                Reset All Filters
-                            </Button>
-                            <Button
-                                type="button"
-                                size="sm"
-                                onClick={() => applyFilters()}
-                                className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-4 rounded-lg"
-                            >
-                                Apply Filters
-                            </Button>
-                        </div>
-                    </div>
-                )}
-            </form>
-        </div>
+            )}
+        </form>
     );
 }
